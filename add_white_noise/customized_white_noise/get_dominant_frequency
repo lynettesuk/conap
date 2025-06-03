@@ -1,0 +1,34 @@
+import librosa
+import numpy as np
+
+
+def get_dominant_frequency(y, sr):
+    """
+    Analyze an audio signal and return its dominant frequency in Hz.
+
+    Parameters:
+        y (np.ndarray): Audio signal (1D NumPy array).
+        sr (int): Sampling rate of the audio signal (samples per second).
+
+    Returns:
+        float: Dominant frequency (in Hz) with the highest average energy.
+    """
+
+    # Compute the Short-Time Fourier Transform (STFT) of the audio signal
+    # S will be a 2D array: shape (freq_bins, time_frames)
+    S = np.abs(librosa.stft(y))
+
+    # Get the frequency values corresponding to each row of S
+    # These are the center frequencies for each FFT bin
+    freqs = librosa.fft_frequencies(sr=sr)
+
+    # Average the magnitude across all time frames to get an overall
+    # energy profile
+    avg_spectrum = np.mean(S, axis=1)
+
+    # Find the frequency bin with the highest average magnitude
+    # This represents the dominant frequency in the signal
+    dominant_freq = freqs[np.argmax(avg_spectrum)]
+
+    # Return the dominant frequency in Hz
+    return dominant_freq

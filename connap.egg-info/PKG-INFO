@@ -1,0 +1,35 @@
+Metadata-Version: 2.1
+Name: connap
+Version: 0.post6.dev0+g3ad4d06
+Summary: A collection of CNNs focusing auditory processing, ready to go for neuroscientific and behavioral investigations.
+Home-page: https://github.com/peerherholz/connap
+Author: Peer Herholz
+Author-email: herholz.peer@gmail.com
+License: BSD (3-clause)
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.6
+License-File: LICENSE
+License-File: AUTHORS.rst
+
+=================================================================================================
+CONAP – a Python toolbox for the collection/application of & feature extraction from deep neural networks for auditory processing
+=================================================================================================
+
+.. image:: https://img.shields.io/travis/peerherholz/connap.svg
+        :target: https://travis-ci.org/peerherholz/connap
+
+.. image:: https://img.shields.io/pypi/v/connap.svg
+        :target: https://pypi.python.org/pypi/connap
+
+
+A collection of AI models focusing auditory processing, ready to go for neuroscientific, computational and behavioral investigations.
+
+* Free software: 3-clause BSD license
+* Documentation: (COMING SOON!) https://peerherholz.github.io/connap.
+
+Features
+--------
+
+* TODO

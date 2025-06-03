@@ -1,0 +1,53 @@
+from customized_white_noise import get_dominant_frequency
+from customized_white_noise import generate_colored_noise
+import librosa 
+import numpy as np
+
+
+def add_colored_noise_by_freq(audio_path, noise_level=0.05):
+    """
+    Load an audio file, analyze its dominant frequency, and add 
+    corresponding colored noise.
+
+    The function:
+    - Loads the audio from a given file.
+    - Determines its dominant frequency.
+    - Selects a noise color (white, pink, or brown) based on that frequency.
+    - Generates noise of the same length and sample rate.
+    - Adds the scaled noise to the original signal.
+    - Normalizes the resulting signal to avoid clipping.
+
+    Parameters:
+        audio_path (str): Path to the input audio file.
+        noise_level (float): Scaling factor for how much noise to add
+        (default is 0.05).
+
+    Returns:
+        np.ndarray: The audio signal with added colored noise, 
+        normalized between -1 and 1.
+    """
+    y, sr = librosa.load(audio_path, sr=None)
+  
+    # Analyze dominant frequency
+    dominant_freq = get_dominant_frequency(y, sr)
+    print(f"Dominant frequency: {dominant_freq:.2f} Hz")
+
+    # Decide noise color based on dominant frequency
+    if dominant_freq < 300:
+        color = 'brown'
+    elif 300 <= dominant_freq < 2000:
+        color = 'pink'
+    else:
+        color = 'white'
+
+    print(f"Adding {color} noise")
+
+    # Generate noise and add it to signal
+    noise = generate_colored_noise(color, len(y), sr)
+    y_noisy = y + noise_level * noise
+
+    # Normalize to prevent clipping
+    y_noisy /= np.max(np.abs(y_noisy))
+
+    # Return the noisy audio
+    return y_noisy

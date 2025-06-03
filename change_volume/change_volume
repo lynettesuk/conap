@@ -1,0 +1,53 @@
+from pydub import AudioSegment
+
+
+# Changes the volume of an audio file by a specified gain in decibels (dB).
+# Parameters:
+# input_path (str): Path to the input audio file.
+# output_path (str): Path to save the output audio.
+# gain_db (float): Gain in decibels. Positive to increase,
+# negative to decrease.
+# Example: +10 = louder, -10 = quieter.
+
+def change_volume(input_path, gain_db, output_path=None):
+
+    """
+    Changes the volume of an audio file by a specified gain in decibels (dB).
+
+    Parameters:
+    ----------
+    input_path : str
+        Path to the input audio file.
+    gain_db : float
+        Gain in decibels. Positive values increase volume, negative values decrease it.
+        For example, +10 makes the audio louder, -10 makes it quieter.
+    output_path : str, optional
+        Path to save the adjusted audio. If None, the function returns the modified
+        AudioSegment object without saving it to a file.
+
+    Returns:
+    -------
+    AudioSegment
+        The audio segment with adjusted volume.
+
+    Notes:
+    -----
+    - If `output_path` is provided, the adjusted audio is saved as a WAV file.
+    - If `output_path` is not provided, the modified audio is returned but not saved.
+    """
+    
+    # Load the audio file
+    audio = AudioSegment.from_file(input_path)
+
+    # Apply volume change
+    adjusted_audio = audio.apply_gain(gain_db)
+
+    # Export the modified audio
+    if output_path is not None:
+        # If an output path is provided, save the adjusted audio
+        adjusted_audio.export(output_path, format="wav")
+        print(f"Volume adjusted by {gain_db} dB and saved to: {output_path}")
+        return adjusted_audio
+    else:
+        # If no output path is provided, return the adjusted audio
+        return adjusted_audio
