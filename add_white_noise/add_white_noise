@@ -2,7 +2,7 @@ from pydub import AudioSegment
 from pydub.generators import WhiteNoise
 
 
-# Adds white noise to the input audio for the specified duration.
+# Adds white noise to the input audio.
 # Parameters:
 # input_audio_path (str): Path to the user's input audio file.
 # output_audio_path (str): Path where the output audio with noise
@@ -15,7 +15,7 @@ def add_white_noise(input_audio_path, output_audio_path,
                     duration, noise_level):
 
     """
-    Adds white noise to a randomly selected segment of an input audio file
+    Adds white noise to an input audio file
     and exports the result.
 
     Parameters:
@@ -29,8 +29,6 @@ def add_white_noise(input_audio_path, output_audio_path,
 
     Notes:
     -----
-    - A random segment of the input audio with the specified duration is
-      selected.
     - White noise is generated and mixed with the selected audio segment.
     - The resulting audio is exported as a WAV file to
     the specified output path.
