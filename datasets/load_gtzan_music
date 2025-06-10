@@ -3,13 +3,13 @@ import os
 
 
 def load_gtzan_music():
-    
+
     """
     Loads the GTZAN music dataset using librosa.
 
-    The GTZAN dataset contains 1000 music tracks categorized into 10 genres, 
+    The GTZAN dataset contains 1000 music tracks categorized into 10 genres,
     commonly used for music genre classification.
-    This function checks if the dataset is present locally, and if not, 
+    This function checks if the dataset is present locally, and if not,
     it downloads and extracts the dataset.
     After that, it loads a music file from the dataset using librosa.
 

@@ -13,7 +13,12 @@ def load_libri_speech():
     Returns:
         dataset (list): A list of audio samples from the LibriSpeech dataset.
     """
+   
     # Load LibriSpeech dataset using torchaudio
     dataset = torchaudio.datasets.LIBRISPEECH(root="./", download=True)
+
+    # Print message indicating the dataset has been loaded
     print(f"Loaded LibriSpeech dataset with {len(dataset)} samples.")
+
+    # Return the dataset
     return dataset

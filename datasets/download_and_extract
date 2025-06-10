@@ -47,22 +47,45 @@ def download_and_extract(dataset_name):
         return
 
     # Download the dataset
+    # Uses streaming to handle large files without loading everything into
+    # memory.
     print(f"Downloading {dataset_name} from {dataset['url']}...")
     response = requests.get(dataset["url"], stream=True)
+
+    # Check if the HTTP request was successful (status code 200).
     if response.status_code == 200:
+
+        # Write the file content in chunks to avoid memory overload.
         with open(dataset["filename"], "wb") as file:
             for chunk in response.iter_content(chunk_size=8192):
                 file.write(chunk)
         print(f"Downloaded {dataset_name}.")
+
+    # Handle failed download with an error message including the HTTP
+    # status code.
     else:
-        print(f"Failed to download {dataset_name}. Status code: {response.status_code}")
+        print(
+            f"Failed to download {dataset_name}. "
+            f"Status code: {response.status_code}"
+        )
         return
 
     # Extract the dataset if needed
     if dataset["extract"]:
         print(f"Extracting {dataset_name}...")
+
+        # Use system utilities to extract .tar.gz files
         if dataset["filename"].endswith(".tar.gz"):
             os.system(f"tar -xzvf {dataset['filename']}")
+
+        # Use unzip for .zip files
         elif dataset["filename"].endswith(".zip"):
             os.system(f"unzip {dataset['filename']}")
+
+        # Print a message if the file format is not supported
+        else:
+            print(f"Unsupported file format for {dataset_name}. "
+                  "Please extract it manually.")
+
+        # Print a message indicating successful extraction
         print(f"Extracted {dataset_name}.")

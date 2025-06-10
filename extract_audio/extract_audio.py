@@ -5,7 +5,7 @@ import random
 def extract_audio(audio, length):
 
     """
-    Extracts a random audio clip of a specified duration from a WAV file 
+    Extracts a random audio clip of a specified duration from a WAV file
     and saves it.
 
     Parameters:
@@ -23,7 +23,7 @@ def extract_audio(audio, length):
     Notes:
     -----
     - The function randomly selects a starting point for the clip.
-    - The extracted clip is saved as 'random_clip.wav' in the 
+    - The extracted clip is saved as 'random_clip.wav' in the
     current directory.
     - This function only works with WAV files.
     """
@@ -36,7 +36,7 @@ def extract_audio(audio, length):
     duration = len(audio)
 
     # Duration of the clip you want to extract (in ms)
-    clip_duration = length 
+    clip_duration = length
 
     # Make sure the clip fits in the audio
     if duration < clip_duration:
