@@ -1,0 +1,19 @@
+import torchaudio
+
+
+def load_libri_speech():
+    """
+    Loads the LibriSpeech dataset using torchaudio.
+
+    The LibriSpeech dataset contains large quantities of speech data
+    (audiobooks) and is used for automatic
+    speech recognition (ASR) tasks. This function downloads the dataset
+    (if not already present) and loads it into memory.
+
+    Returns:
+        dataset (list): A list of audio samples from the LibriSpeech dataset.
+    """
+    # Load LibriSpeech dataset using torchaudio
+    dataset = torchaudio.datasets.LIBRISPEECH(root="./", download=True)
+    print(f"Loaded LibriSpeech dataset with {len(dataset)} samples.")
+    return dataset

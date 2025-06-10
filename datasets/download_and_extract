@@ -1,0 +1,68 @@
+import os
+import requests
+
+
+# Example datasets
+DATASETS = {
+    "libri_speech": {
+        "url": "http://www.openslr.org/resources/12/dev-clean.tar.gz",
+        "filename": "dev-clean.tar.gz",
+        "extract": True,
+    },
+    "gtzan_music": {
+        "url": "http://opihi.cs.uvic.ca/sound/gtzan.tar.gz",
+        "filename": "gtzan.tar.gz",
+        "extract": True,
+    }
+}
+
+
+def download_and_extract(dataset_name):
+    """
+    Downloads and extracts a dataset if not already present in the
+    local directory.
+
+    This function checks if the specified dataset exists in the local
+    directory. If not, it downloads the dataset from the provided URL
+    and extracts it if necessary (e.g., tar or zip files).
+
+    Args:
+        dataset_name (str): The name of the dataset to download and extract.
+                            Should be one of the keys in the `DATASETS`
+                            dictionary (e.g., 'libri_speech', 'gtzan_music').
+
+    Returns:
+        None
+    """
+
+    # Check if the dataset name is valid
+    dataset = DATASETS.get(dataset_name)
+    if not dataset:
+        print(f"Dataset '{dataset_name}' not found.")
+        return
+
+    # Check if the dataset already exists
+    if os.path.exists(dataset["filename"]):
+        print(f"'{dataset_name}' already downloaded.")
+        return
+
+    # Download the dataset
+    print(f"Downloading {dataset_name} from {dataset['url']}...")
+    response = requests.get(dataset["url"], stream=True)
+    if response.status_code == 200:
+        with open(dataset["filename"], "wb") as file:
+            for chunk in response.iter_content(chunk_size=8192):
+                file.write(chunk)
+        print(f"Downloaded {dataset_name}.")
+    else:
+        print(f"Failed to download {dataset_name}. Status code: {response.status_code}")
+        return
+
+    # Extract the dataset if needed
+    if dataset["extract"]:
+        print(f"Extracting {dataset_name}...")
+        if dataset["filename"].endswith(".tar.gz"):
+            os.system(f"tar -xzvf {dataset['filename']}")
+        elif dataset["filename"].endswith(".zip"):
+            os.system(f"unzip {dataset['filename']}")
+        print(f"Extracted {dataset_name}.")
