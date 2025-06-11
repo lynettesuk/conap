@@ -1,0 +1,28 @@
+from datasets import download_and_extract
+import os
+
+
+def load_gtzan_music():
+
+    """
+    Loads the GTZAN music dataset using librosa.
+
+    The GTZAN dataset contains 1000 music tracks categorized into 10 genres,
+    commonly used for music genre classification.
+    This function checks if the dataset is present locally, and if not,
+    it downloads and extracts the dataset.
+    After that, it loads a music file from the dataset using librosa.
+
+    Returns:
+        y (ndarray): The audio data of the first loaded music file.
+        sr (int): The sample rate of the loaded audio data.
+    """
+
+    # Check if GTZAN dataset directory exists
+    # If not, download and extract it
+    gtzan_dir = "./gtzan/"
+    if not os.path.exists(gtzan_dir):
+        print("GTZAN dataset not found, downloading...")
+        download_and_extract("gtzan_music")
+    else:
+        print("GTZAN dataset already exists.")
