@@ -19,10 +19,12 @@ def change_volume(input_path, gain_db, output_path=None):
     input_path : str
         Path to the input audio file.
     gain_db : float
-        Gain in decibels. Positive values increase volume, negative values decrease it.
+        Gain in decibels. Positive values increase volume, negative values
+        decrease it.
         For example, +10 makes the audio louder, -10 makes it quieter.
     output_path : str, optional
-        Path to save the adjusted audio. If None, the function returns the modified
+        Path to save the adjusted audio. If None, the function returns the
+        modified
         AudioSegment object without saving it to a file.
 
     Returns:
@@ -33,9 +35,10 @@ def change_volume(input_path, gain_db, output_path=None):
     Notes:
     -----
     - If `output_path` is provided, the adjusted audio is saved as a WAV file.
-    - If `output_path` is not provided, the modified audio is returned but not saved.
+    - If `output_path` is not provided, the modified audio is returned but not
+    saved.
     """
-    
+
     # Load the audio file
     audio = AudioSegment.from_file(input_path)
 
